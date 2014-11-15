@@ -1,3 +1,0 @@
-This is a test example of the question template.
-
-There will be a first name of Lauren and a second name of Emily choosen at random.

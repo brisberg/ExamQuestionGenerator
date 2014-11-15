@@ -8,14 +8,12 @@
 #include <map>
 #include <utility>
 #include <vector>
-#include <math.h>
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	std::string templateFileName = "template1.txt";
 	std::string variableNamesFileName = "var_names01.txt";
-	std::string outputFileName = "template1_output.txt";
 
 	// Read in template documents
 	std::ifstream templateFile("Input Files/" +  templateFileName); // template file stream
@@ -52,28 +50,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	// Search for variables in the templates
-	std::string startToken = "<$";
-	std::string endToken = "$>";
+	std::string token = "$";
 	std::vector<size_t> positions; // holds all the positions that sub occurs within str
 
-	size_t pos = templateRawText.find(startToken, 0);
+	size_t pos = templateRawText.find(token, 0);
 	while(pos != std::string::npos)
 	{
 		positions.push_back(pos);
-		// Resolve all variables
-		int nameIndex = rand() % variableStringCatagories["names01"].size();
-		templateRawText.replace(pos, templateRawText.find(endToken, pos) - pos + endToken.length(), variableStringCatagories["names01"][nameIndex]);
-		pos = templateRawText.find(startToken,pos+1);
+		pos = templateRawText.find(token,pos+1);
 	}
 
-	// Write out the results file
-	std::ofstream outputFile ("Output Files/" + outputFileName);
-	if (outputFile.is_open())
-	{
-		outputFile << templateRawText;
-		outputFile.close();
-	}
-	else std::cout << "Unable to open output file: " << outputFile << "\n";
+	   // Resolve all variables
 
 	system("PAUSE");
 	return 0;
